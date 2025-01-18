@@ -1,0 +1,9 @@
+.customTitle{ 
+    height: 150px;
+    background-color: grey;
+    align-items: center;
+}
+
+h1{
+    font-size: 100px;
+}

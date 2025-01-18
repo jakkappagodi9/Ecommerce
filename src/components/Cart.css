@@ -1,0 +1,28 @@
+.cart {
+  height: 100%; /* Full height of parent */
+  width: 30%; /* Width of the box */
+  border: 2px solid green; /* Optional styling */
+  background-color: white;
+  
+}
+
+.overlay {
+  position: fixed; /* Fixed position */
+  top: 60px; /* Distance from the top */
+  right: 0; /* Align to the right side of the screen */
+  z-index: 1000; /*Ensure it is on top of other elements*/
+}
+.cartHeader{
+  text-align: center;
+  font-weight: bold;
+  padding-right:40%;
+  padding-top:25px;
+
+  
+}
+.content{
+  height: 100px;
+  width: 100px;
+  background-color: aqua;
+  border-radius: 50%;
+}
