@@ -1,8 +1,10 @@
-import { Alert, Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { CartContext } from '../store/ContextProvider';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import { toast } from 'react-toastify';
+import './Product.css';
 
-export default function Products() {
+export default function Products(props) {
   const { cartListContext, setcartListContext } = useContext(CartContext);
   const productsArr = [
     {
@@ -53,7 +55,9 @@ export default function Products() {
         quantity: 1,
       };
       setcartListContext((previous) => [...previous, newItem]);
+      toast.success(`Your Product : ${heading} is added to the cart`);
     }
+    // Toast handling
   };
 
   const productList = productsArr.map((product, index) => {
@@ -72,13 +76,13 @@ export default function Products() {
           <img
             src={product.imageUrl}
             alt={product.title}
-            className="zoom-image"
+            className="zoomImage"
           />
-          <p className="m-5">
+          <p className="m-3">
             {` $ ${product.price}`}{' '}
             <Button
               variant="info"
-              style={{ marginLeft: '100px' }}
+              style={{ marginLeft: '120px' }}
               onClick={() => {
                 addToCartHandler(index);
               }}
@@ -94,18 +98,17 @@ export default function Products() {
   return (
     <>
       <Container>
-        <h1
-          style={{
-            fontFamily: 'cursive',
-            textAlign: 'center',
-            padding: '10px',
-            fontSize: '30px',
-            fontWeight: 'bold',
-          }}
-        >
-          Music
-        </h1>
+        <h1 className="subTitle">Music</h1>
         <Row>{productList}</Row>
+        <div className="container d-flex justify-content-center m-4">
+          <Button
+            variant="secondary"
+            className="text-info"
+            onClick={props.cartIconhandler}
+          >
+            See The cart
+          </Button>
+        </div>
       </Container>
     </>
   );

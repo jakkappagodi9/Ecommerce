@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Offcanvas, Button } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
+import { Offcanvas } from 'react-bootstrap';
 import { CartContext } from '../store/ContextProvider';
 
 function Cart(props) {
@@ -29,8 +29,26 @@ function Cart(props) {
 
   const { cartListContext, setcartListContext } = useContext(CartContext);
 
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  // Automatically calculate Total Amount
+  useEffect(() => {
+    const total = cartListContext.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    setTotalAmount(total);
+  }, [cartListContext]);
+
   const removeItem = (index) => {
     setcartListContext(cartListContext.filter((ele, i) => i !== index));
+  };
+
+  const purchaseBtnHandler = () => {
+    cartListContext.length > 0
+      ? alert('Thanks for the purchase!')
+      : alert('You have Nothing in Cart, Please add some product to purchase!');
+    setcartListContext([]);
   };
 
   const cartsElements = cartListContext.map((item, index) => {
@@ -41,9 +59,11 @@ function Cart(props) {
             <span className="font-weight-bold">
               <img src={item.imageUrl} alt="image" className="img-fluid" />
             </span>
+            <p style={{ fontSize: '12px' }}>{item.heading}</p>
           </div>
           <div className="col-2 d-flex align-items-center">
             <span className="font-weight-bold ">{item.price}</span>
+            {}
           </div>
           <div className="col-5 d-flex align-items-center">
             <input
@@ -97,7 +117,7 @@ function Cart(props) {
               <div className="row">
                 <div className="col-12 text-end my-3">
                   <h4>
-                    Total <span className="fw-normal">$100</span>
+                    Total $<span className="fw-normal">{totalAmount}</span>
                   </h4>
                 </div>
               </div>
@@ -106,7 +126,12 @@ function Cart(props) {
           <div className="container">
             <div className="row d-flex justify-content-center">
               <div className="col-auto">
-                <button className="btn btn-info text-white">Purchase</button>
+                <button
+                  className="btn btn-info text-white"
+                  onClick={purchaseBtnHandler}
+                >
+                  Purchase
+                </button>
               </div>
             </div>
           </div>

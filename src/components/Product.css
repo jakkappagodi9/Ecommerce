@@ -1,8 +1,17 @@
-.zoom-image {
+.zoomImage {
     transition: transform 0.5s ease-in-out;
   }
   
-  .zoom-image:hover {
+  .zoomImage:hover {
     transform: scale(1.1);
+  }
+
+  .subTitle{
+    font-family: cursive;
+    text-align : center;
+    padding: 10px;
+    font-size : 40px;
+    font-weight: bold;
+
   }
   

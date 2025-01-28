@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { CartContext } from '../store/ContextProvider';
 import { Badge } from 'react-bootstrap';
 import './Navigationbar.css';
 export default function Navigationbar(props) {
   const [isCollapsed, setisCollapsed] = useState(false);
+  const { cartListContext } = useContext(CartContext);
+  const [TotalItemCount, setTotalItemCount] = useState(0);
+
   const isCollapsedHandler = () => {
     setisCollapsed(!isCollapsed);
   };
+
+  useEffect(() => {
+    const NumberOfItems = cartListContext.reduce((total, item) => {
+      total += item.quantity;
+      return total;
+    }, 0);
+    setTotalItemCount(NumberOfItems);
+  }, [cartListContext]);
   return (
     <>
       {/* <Navbar bg="dark" expand="md" variant="dark" fixed="top">
@@ -31,7 +43,7 @@ export default function Navigationbar(props) {
           </Badge>
         </Container>
       </Navbar> */}
-      <nav className="navbar navbar-expand-md navbar-dark bg-black">
+      <nav className="navbar navbar-expand-md navbar-dark bg-black fixed-top">
         <div className="container">
           <a href="#" className="navbar-brand">
             <span>E-Commerce</span>
@@ -84,7 +96,7 @@ export default function Navigationbar(props) {
             cart
           </button>
           <Badge bg="" className="badgeCustom ">
-            1
+            {TotalItemCount}
           </Badge>
         </div>
       </nav>

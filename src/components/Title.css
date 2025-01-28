@@ -1,7 +1,8 @@
 .customTitle{ 
-    height: 150px;
+    height: 200px;
     background-color: grey;
     align-items: center;
+    margin-top: 60px;
 }
 
 h1{
