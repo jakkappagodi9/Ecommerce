@@ -5,6 +5,7 @@ import Title from './components/Title';
 import Cart from './components/Cart';
 import { useState } from 'react';
 import Navigationbar from './components/Navigationbar';
+import ContextProvider from './store/ContextProvider';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -16,10 +17,12 @@ function App() {
 
   return (
     <>
-      <Navigationbar cartIconhandler={cartIconhandler} />
-      <Title />
-      <Products />
-      <Cart show={show} handleClose={handleClose} />
+      <ContextProvider>
+        <Navigationbar cartIconhandler={cartIconhandler} />
+        <Title />
+        <Products />
+        <Cart show={show} handleClose={handleClose} />
+      </ContextProvider>
     </>
   );
 }

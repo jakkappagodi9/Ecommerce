@@ -1,46 +1,40 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Offcanvas, Button } from 'react-bootstrap';
+import { CartContext } from '../store/ContextProvider';
 
 function Cart(props) {
-  const [cartElementslist, setcartElementslist] = useState([
-    {
-      title: 'Colors',
-      price: 100,
-      imageUrl:
-        'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-      quantity: 2,
-    },
-    {
-      title: 'Black and white Colors',
-      price: 50,
-      imageUrl:
-        'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-      quantity: 3,
-    },
-    {
-      title: 'Yellow and Black Colors',
-      price: 70,
-      imageUrl:
-        'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-      quantity: 1,
-    },
-  ]);
+  // const [cartListContext, setcartListContext] = useState([
+  //   {
+  //     title: 'Colors',
+  //     price: 100,
+  //     imageUrl:
+  //       'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
+  //     quantity: 2,
+  //   },
+  //   {
+  //     title: 'Black and white Colors',
+  //     price: 50,
+  //     imageUrl:
+  //       'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+  //     quantity: 3,
+  //   },
+  //   {
+  //     title: 'Yellow and Black Colors',
+  //     price: 70,
+  //     imageUrl:
+  //       'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
+  //     quantity: 1,
+  //   },
+  // ]);
+
+  const { cartListContext, setcartListContext } = useContext(CartContext);
 
   const removeItem = (index) => {
-    setcartElementslist(cartElementslist.filter((ele, i) => i != index));
+    setcartListContext(cartListContext.filter((ele, i) => i !== index));
   };
 
-  const cartsElements = cartElementslist.map((item, index) => {
+  const cartsElements = cartListContext.map((item, index) => {
     return (
-      // <li className="col-2" key={index}>
-      //   <img
-      //     src={item.imageUrl}
-      //     alt="productImage"
-      //     className="img-fluid mt-3"
-      //   />
-      //   <span className="ms-4">{item.price}</span>
-      //   <span className="ms-5">{item.quantity}</span>
-      // </li>
       <div className="container container-fluid" key={index}>
         <div className="row justify-content-between border-bottom">
           <div className="col-2 mt-3 mb-2">
@@ -52,11 +46,11 @@ function Cart(props) {
             <span className="font-weight-bold ">{item.price}</span>
           </div>
           <div className="col-5 d-flex align-items-center">
-            {/* <span className="">{item.quantity}</span> */}
             <input
               type="text"
               className="font-weight-bold form-control border-info ms-2"
               value={item.quantity}
+              readOnly
             />
             <button
               className="btn btn-danger ms-4"

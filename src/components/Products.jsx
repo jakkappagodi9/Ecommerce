@@ -1,7 +1,9 @@
-import { Button, Col, Container, Row } from 'react-bootstrap';
-// import './Product.css';
+import { Alert, Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { CartContext } from '../store/ContextProvider';
+import { useContext, useState } from 'react';
 
 export default function Products() {
+  const { cartListContext, setcartListContext } = useContext(CartContext);
   const productsArr = [
     {
       title: 'Colors',
@@ -29,6 +31,31 @@ export default function Products() {
     },
   ];
 
+  const addToCartHandler = (index) => {
+    const heading = `Album ${index + 1}`;
+
+    const existingItem = cartListContext.find(
+      (item) => item.heading === heading
+    );
+    if (existingItem) {
+      // If item exists, increment its quantity
+      const updateItem = cartListContext.map((item) =>
+        item.heading === heading
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      alert('This item is already present in the cart');
+      setcartListContext(updateItem);
+    } else {
+      const newItem = {
+        heading: heading,
+        ...productsArr[index],
+        quantity: 1,
+      };
+      setcartListContext((previous) => [...previous, newItem]);
+    }
+  };
+
   const productList = productsArr.map((product, index) => {
     return (
       <Col
@@ -38,9 +65,10 @@ export default function Products() {
         className=" d-flex justify-content-center"
       >
         <div>
-          <h3 style={{ margin: '25px', textAlign: 'center' }}>{`Album ${
-            index + 1
-          }`}</h3>
+          <h3
+            style={{ margin: '25px', textAlign: 'center' }}
+            id={`Album ${index + 1}`}
+          >{`Album ${index + 1}`}</h3>
           <img
             src={product.imageUrl}
             alt={product.title}
@@ -48,7 +76,13 @@ export default function Products() {
           />
           <p className="m-5">
             {` $ ${product.price}`}{' '}
-            <Button variant="info" style={{ marginLeft: '100px' }}>
+            <Button
+              variant="info"
+              style={{ marginLeft: '100px' }}
+              onClick={() => {
+                addToCartHandler(index);
+              }}
+            >
               ADD TO CART
             </Button>
           </p>
@@ -71,7 +105,6 @@ export default function Products() {
         >
           Music
         </h1>
-
         <Row>{productList}</Row>
       </Container>
     </>
