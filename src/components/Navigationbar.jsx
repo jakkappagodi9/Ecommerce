@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../store/ContextProvider';
 import { Badge } from 'react-bootstrap';
 import './Navigationbar.css';
+import { Link, NavLink } from 'react-router-dom';
+
 export default function Navigationbar(props) {
   const [isCollapsed, setisCollapsed] = useState(false);
   const { cartListContext } = useContext(CartContext);
@@ -75,14 +77,21 @@ export default function Navigationbar(props) {
                 </a>
               </li>
               <li className="nav-item me-4">
-                <a href="#store" className="nav-link text-white">
+                {/* <a href="#store" className="">
                   STORE
-                </a>
+                </a> */}
+
+                <NavLink to="/" className={'nav-link text-white'}>
+                  STORE
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a href="#about" className="nav-link text-white">
+                {/* <a href="#about" className="nav-link text-white">
                   ABOUT
-                </a>
+                </a> */}
+                <NavLink to="/about" className={'nav-link text-white'}>
+                  ABOUT
+                </NavLink>
               </li>
             </ul>
           </div>
