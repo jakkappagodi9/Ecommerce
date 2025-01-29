@@ -9,6 +9,7 @@ import ContextProvider from './store/ContextProvider';
 import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import About from './components/About';
+import Home from './components/Home';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -45,6 +46,18 @@ function App() {
           <Title />
           <Cart show={show} handleClose={handleClose} />
           <About />
+          <Footer></Footer>
+        </>
+      ),
+    },
+    {
+      path: '/home',
+      element: (
+        <>
+          <Navigationbar cartIconhandler={cartIconhandler} />
+          <Title />
+          <Cart show={show} handleClose={handleClose} />
+          <Home />
           <Footer></Footer>
         </>
       ),

@@ -72,9 +72,12 @@ export default function Navigationbar(props) {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a href="#home" className="nav-link text-white">
+                {/* <a href="#home" className="nav-link text-white">
                   HOME
-                </a>
+                </a> */}
+                <NavLink to="/home" className={'nav-link text-white'}>
+                  HOME
+                </NavLink>
               </li>
               <li className="nav-item me-4">
                 {/* <a href="#store" className="">
