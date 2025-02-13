@@ -10,21 +10,14 @@ import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import About from './components/About';
 import Home from './components/Home';
-
+import ContactUS from './components/ContactUS';
+import './index.css';
 function App() {
   const [show, setShow] = useState(false);
   const cartIconhandler = () => {
     setShow(!show);
   };
   const handleClose = () => setShow(!show);
-
-  // const totalAmount = () => {
-  //   cartListContext.reduce((sum, current) => {
-  //     sum = sum + current.price;
-  //     console.log(current);
-  //   }, 0);
-  //   console.log(cartListContext);
-  // };
   const router = createBrowserRouter([
     {
       path: '/',
@@ -58,6 +51,16 @@ function App() {
           <Title />
           <Cart show={show} handleClose={handleClose} />
           <Home />
+          <Footer></Footer>
+        </>
+      ),
+    },
+    {
+      path: '/contactUS',
+      element: (
+        <>
+          <Navigationbar cartIconhandler={cartIconhandler} />
+          <ContactUS></ContactUS>
           <Footer></Footer>
         </>
       ),

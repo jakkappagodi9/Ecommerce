@@ -1,10 +1,14 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './Footer.css';
 
 export default function Footer() {
   return (
     <>
-      <footer className="bg-info text-light py-3">
+      <footer
+        className="bg-info text-light py-3 footer"
+        style={{ bottom: '0' }}
+      >
         <div className="container">
           <div className="row">
             <div className="col text-center text-md-start">
