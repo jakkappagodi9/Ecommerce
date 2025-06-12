@@ -34,7 +34,7 @@ export default function ContactUS() {
     });
   }
   return (
-    <div className="container-lg " style={{ marginTop: '10%' }}>
+    <div className="container" style={{ marginTop: '10%' }}>
       <div className="text-center">
         <h4>Query Form</h4>
         <p className="lead"> Have questions to ask ? Please fill the form</p>

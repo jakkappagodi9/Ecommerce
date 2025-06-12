@@ -5,13 +5,15 @@ import Title from './components/Title';
 import Cart from './components/Cart';
 import { useState } from 'react';
 import Navigationbar from './components/Navigationbar';
-import ContextProvider from './store/ContextProvider';
+
 import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import About from './components/About';
 import Home from './components/Home';
 import ContactUS from './components/ContactUS';
+import AuthPage from './components/AuthPage';
 import './index.css';
+import ContextProvider from './store/ContextProvider';
 function App() {
   const [show, setShow] = useState(false);
   const cartIconhandler = () => {
@@ -27,7 +29,6 @@ function App() {
           <Title />
           <Cart show={show} handleClose={handleClose} />
           <Products cartIconhandler={cartIconhandler} />
-          <Footer></Footer>
         </>
       ),
     },
@@ -61,6 +62,16 @@ function App() {
         <>
           <Navigationbar cartIconhandler={cartIconhandler} />
           <ContactUS></ContactUS>
+          <Footer></Footer>
+        </>
+      ),
+    },
+    {
+      path: '/authPage',
+      element: (
+        <>
+          <Navigationbar cartIconhandler={cartIconhandler} />
+          <AuthPage></AuthPage>
           <Footer></Footer>
         </>
       ),

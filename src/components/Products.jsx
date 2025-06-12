@@ -3,6 +3,7 @@ import { CartContext } from '../store/ContextProvider';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import './Product.css';
+import StoreFooter from './StoreFooter';
 
 export default function Products(props) {
   const { cartListContext, setcartListContext } = useContext(CartContext);
@@ -97,7 +98,7 @@ export default function Products(props) {
 
   return (
     <>
-      <Container>
+      <Container className="product">
         <h1 className="subTitle">Music</h1>
         <Row>{productList}</Row>
         <div className="container d-flex justify-content-center m-4">
@@ -110,6 +111,7 @@ export default function Products(props) {
           </Button>
         </div>
       </Container>
+      <StoreFooter></StoreFooter>
     </>
   );
 }

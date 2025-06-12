@@ -1,11 +1,11 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './Footer.css';
+import './StoreFooter.css';
 
-export default function Footer() {
+export default function StoreFooter() {
   return (
     <>
-      <footer className="bg-info text-light py-3 footer">
+      <footer className="bg-info text-light py-3 styles">
         <div className="container">
           <div className="row">
             <div className="col text-center text-md-start">
