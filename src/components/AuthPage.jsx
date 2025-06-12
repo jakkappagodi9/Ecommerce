@@ -37,7 +37,7 @@ export default function AuthPage() {
       })
       .then((data) => {
         AuthCtx.Login(data.idToken);
-        navigate('/');
+        navigate('/product');
       })
       .catch((err) => {
         alert(err);

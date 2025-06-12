@@ -71,7 +71,7 @@ export default function Navigationbar(props) {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/" className="nav-link text-white">
+              <NavLink to="/product" className="nav-link text-white">
                 STORE
               </NavLink>
             </li>
@@ -92,7 +92,7 @@ export default function Navigationbar(props) {
             className="d-flex align-items-center"
             style={{ minWidth: '200px', justifyContent: 'flex-end' }}
           >
-            <NavLink to="/AuthPage" className="nav-link text-white me-3">
+            <NavLink to="/" className="nav-link text-white me-3">
               Login
             </NavLink>
             <button
