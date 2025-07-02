@@ -1,35 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Offcanvas } from 'react-bootstrap';
 import { CartContext } from '../store/ContextProvider';
+import AuthContext from '../store/authContext';
 
 function Cart(props) {
-  // const [cartListContext, setcartListContext] = useState([
-  //   {
-  //     title: 'Colors',
-  //     price: 100,
-  //     imageUrl:
-  //       'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-  //     quantity: 2,
-  //   },
-  //   {
-  //     title: 'Black and white Colors',
-  //     price: 50,
-  //     imageUrl:
-  //       'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-  //     quantity: 3,
-  //   },
-  //   {
-  //     title: 'Yellow and Black Colors',
-  //     price: 70,
-  //     imageUrl:
-  //       'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-  //     quantity: 1,
-  //   },
-  // ]);
-
   const { cartListContext, setcartListContext } = useContext(CartContext);
-
   const [totalAmount, setTotalAmount] = useState(0);
+  const { email } = useContext(AuthContext);
 
   // Automatically calculate Total Amount
   useEffect(() => {
@@ -40,8 +17,24 @@ function Cart(props) {
     setTotalAmount(total);
   }, [cartListContext]);
 
-  const removeItem = (index) => {
-    setcartListContext(cartListContext.filter((ele, i) => i !== index));
+  const removeItem = (id) => {
+    const safeEmail = email.replace(/[^a-zA-Z0-9]/g, '');
+    const url = `https://crudcrud.com/api/d52d1e2605cb49c9bb6191910e5ccad2/${safeEmail}/${id}`;
+    console.log(email);
+    fetch(url, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete item from backend');
+        }
+        // Remove from local context
+        setcartListContext((prev) => prev.filter((item) => item._id !== id));
+        // toast.success('Item removed from cart');
+      })
+      .catch((error) => {
+        console.error('DELETE error:', error);
+      });
   };
 
   const purchaseBtnHandler = () => {
@@ -75,7 +68,7 @@ function Cart(props) {
             <button
               className="btn btn-danger ms-4"
               onClick={() => {
-                removeItem(index);
+                removeItem(item._id);
               }}
             >
               remove

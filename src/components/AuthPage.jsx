@@ -36,8 +36,10 @@ export default function AuthPage() {
         }
       })
       .then((data) => {
-        AuthCtx.Login(data.idToken);
+        AuthCtx.Login(data.idToken, data.email);
         navigate('/product');
+        // console.log(data.email);
+        // AuthCtx.email(data.email);
       })
       .catch((err) => {
         alert(err);

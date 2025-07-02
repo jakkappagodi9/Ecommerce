@@ -3,10 +3,12 @@ import { CartContext } from '../store/ContextProvider';
 import { Badge } from 'react-bootstrap';
 import './Navigationbar.css';
 import { Link, NavLink } from 'react-router-dom';
+import AuthContext from '../store/authContext';
 
 export default function Navigationbar(props) {
   const { cartListContext } = useContext(CartContext);
   const [TotalItemCount, setTotalItemCount] = useState(0);
+  const { isLoggedIn, Logout } = useContext(AuthContext);
 
   useEffect(() => {
     const NumberOfItems = cartListContext.reduce((total, item) => {
@@ -15,6 +17,10 @@ export default function Navigationbar(props) {
     }, 0);
     setTotalItemCount(NumberOfItems);
   }, [cartListContext]);
+
+  const logoutHandler = () => {
+    Logout();
+  };
   return (
     <>
       {/* <nav className="navbar navbar-expand navbar-dark bg-black fixed-top ">
@@ -92,9 +98,19 @@ export default function Navigationbar(props) {
             className="d-flex align-items-center"
             style={{ minWidth: '200px', justifyContent: 'flex-end' }}
           >
-            <NavLink to="/" className="nav-link text-white me-3">
-              Login
-            </NavLink>
+            {isLoggedIn ? (
+              <NavLink
+                to="/"
+                className="nav-link text-white me-3"
+                onClick={logoutHandler}
+              >
+                Logout
+              </NavLink>
+            ) : (
+              <NavLink to="/" className="nav-link text-white me-3">
+                Login
+              </NavLink>
+            )}
             <button
               type="button"
               className="btn btn-outline-info text-white"

@@ -1,12 +1,35 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { CartContext } from '../store/ContextProvider';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import './Product.css';
 import StoreFooter from './StoreFooter';
+import AuthContext from '../store/authContext';
 
 export default function Products(props) {
   const { cartListContext, setcartListContext } = useContext(CartContext);
+  const { email } = useContext(AuthContext);
+  const safeEmail = email.replace(/[^a-zA-Z0-9]/g, '');
+  const url = `https://crudcrud.com/api/d52d1e2605cb49c9bb6191910e5ccad2/${safeEmail}`;
+  console.log(safeEmail);
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch cart items');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Fetched cart items:', data);
+        setcartListContext(data); // Load into context
+      })
+      .catch((error) => {
+        console.error('GET error:', error);
+      });
+  }, []);
+
   const productsArr = [
     {
       title: 'Colors',
@@ -34,14 +57,54 @@ export default function Products(props) {
     },
   ];
 
+  // const addToCartHandler = (index) => {
+  //   const heading = `Album ${index + 1}`;
+  //   const existingItem = cartListContext.find(
+  //     (item) => item.heading === heading
+  //   );
+  //   if (existingItem) {
+  //     // If item exists, increment its quantity
+  //     const updateItem = cartListContext.map((item) =>
+  //       item.heading === heading
+  //         ? { ...item, quantity: item.quantity + 1 }
+  //         : item
+  //     );
+  //     alert('This item is already present in the cart');
+  //     setcartListContext(updateItem);
+  //   } else {
+  //     const newItem = {
+  //       heading: heading,
+  //       ...productsArr[index],
+  //       quantity: 1,
+  //     };
+  //     // console.log(newItem);
+  //     setcartListContext((previous) => [...previous, newItem]);
+  //     toast.success(`Your Product : ${heading} is added to the cart`);
+  //   }
+  //   // Toast handling
+
+  //   fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ cartListContext }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
   const addToCartHandler = (index) => {
     const heading = `Album ${index + 1}`;
-
     const existingItem = cartListContext.find(
       (item) => item.heading === heading
     );
+
     if (existingItem) {
-      // If item exists, increment its quantity
       const updateItem = cartListContext.map((item) =>
         item.heading === heading
           ? { ...item, quantity: item.quantity + 1 }
@@ -55,10 +118,31 @@ export default function Products(props) {
         ...productsArr[index],
         quantity: 1,
       };
+
       setcartListContext((previous) => [...previous, newItem]);
       toast.success(`Your Product : ${heading} is added to the cart`);
+
+      // Send only the new item to crudcrud
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newItem),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to POST item');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Item saved to crudcrud:', data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    // Toast handling
   };
 
   const productList = productsArr.map((product, index) => {

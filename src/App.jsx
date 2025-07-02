@@ -22,8 +22,8 @@ function App() {
   const cartIconhandler = () => setShow(!show);
   const handleClose = () => setShow(false);
 
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  const { isLoggedIn } = useContext(AuthContext);
+  // const isLoggedIn = authCtx.isLoggedIn;
 
   return (
     <ContextProvider>
