@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../store/authContext';
 import { useContext } from 'react';
+import AuthContext from '../store/authContext';
 
 export default function AuthPage() {
   const emailRef = useRef();

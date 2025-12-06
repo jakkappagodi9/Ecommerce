@@ -23,7 +23,7 @@ export default function Products(props) {
       })
       .then((data) => {
         console.log('Fetched cart items:', data);
-        setcartListContext(data); // Load into context
+        setcartListContext(data); // Load cartItems  into context
       })
       .catch((error) => {
         console.error('GET error:', error);
@@ -57,47 +57,6 @@ export default function Products(props) {
     },
   ];
 
-  // const addToCartHandler = (index) => {
-  //   const heading = `Album ${index + 1}`;
-  //   const existingItem = cartListContext.find(
-  //     (item) => item.heading === heading
-  //   );
-  //   if (existingItem) {
-  //     // If item exists, increment its quantity
-  //     const updateItem = cartListContext.map((item) =>
-  //       item.heading === heading
-  //         ? { ...item, quantity: item.quantity + 1 }
-  //         : item
-  //     );
-  //     alert('This item is already present in the cart');
-  //     setcartListContext(updateItem);
-  //   } else {
-  //     const newItem = {
-  //       heading: heading,
-  //       ...productsArr[index],
-  //       quantity: 1,
-  //     };
-  //     // console.log(newItem);
-  //     setcartListContext((previous) => [...previous, newItem]);
-  //     toast.success(`Your Product : ${heading} is added to the cart`);
-  //   }
-  //   // Toast handling
-
-  //   fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ cartListContext }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
   const addToCartHandler = (index) => {
     const heading = `Album ${index + 1}`;
     const existingItem = cartListContext.find(
@@ -195,7 +154,7 @@ export default function Products(props) {
           </Button>
         </div>
       </Container>
-      <StoreFooter></StoreFooter>
+      <StoreFooter />
     </>
   );
 }

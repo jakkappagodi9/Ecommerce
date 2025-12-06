@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Offcanvas } from 'react-bootstrap';
 import { CartContext } from '../store/ContextProvider';
 import AuthContext from '../store/authContext';
@@ -30,7 +30,6 @@ function Cart(props) {
         }
         // Remove from local context
         setcartListContext((prev) => prev.filter((item) => item._id !== id));
-        // toast.success('Item removed from cart');
       })
       .catch((error) => {
         console.error('DELETE error:', error);

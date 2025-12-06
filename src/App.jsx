@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, lazy, Suspense } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -8,14 +8,20 @@ import './index.css';
 import Navigationbar from './components/Navigationbar';
 import Products from './components/products';
 import Title from './components/Title';
-import Cart from './components/Cart';
-import About from './components/About';
-import Home from './components/Home';
-import ContactUS from './components/ContactUS';
+// import Cart from './components/Cart';
+// import About from './components/About';
+// import Home from './components/Home';
+// import ContactUS from './components/ContactUS';
 import AuthPage from './components/AuthPage';
 import Footer from './components/Footer';
 import ContextProvider from './store/ContextProvider';
 import AuthContext from './store/authContext';
+
+// Implementing lazy loading
+const Cart = lazy(() => import('./components/Cart'));
+const About = lazy(() => import('./components/About'));
+const Home = lazy(() => import('./components/Home'));
+const ContactUS = lazy(() => import('./components/ContactUS'));
 
 function App() {
   const [show, setShow] = useState(false);
@@ -36,7 +42,9 @@ function App() {
                 <>
                   <Navigationbar cartIconhandler={cartIconhandler} />
                   <Title />
-                  <Cart show={show} handleClose={handleClose} />
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <Cart show={show} handleClose={handleClose} />
+                  </Suspense>
                   <Products cartIconhandler={cartIconhandler} />
                 </>
               ) : (
@@ -52,8 +60,12 @@ function App() {
                 <>
                   <Navigationbar cartIconhandler={cartIconhandler} />
                   <Title />
-                  <Cart show={show} handleClose={handleClose} />
-                  <About />
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <Cart show={show} handleClose={handleClose} />
+                  </Suspense>
+                  <Suspense fallback={<p>Loading....</p>}>
+                    <About />
+                  </Suspense>
                   <Footer />
                 </>
               ) : (
@@ -69,8 +81,12 @@ function App() {
                 <>
                   <Navigationbar cartIconhandler={cartIconhandler} />
                   <Title />
-                  <Cart show={show} handleClose={handleClose} />
-                  <Home />
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <Cart show={show} handleClose={handleClose} />
+                  </Suspense>
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <Home />
+                  </Suspense>
                   <Footer />
                 </>
               ) : (
@@ -85,7 +101,9 @@ function App() {
               isLoggedIn ? (
                 <>
                   <Navigationbar cartIconhandler={cartIconhandler} />
-                  <ContactUS />
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <ContactUS />
+                  </Suspense>
                   <Footer />
                 </>
               ) : (
